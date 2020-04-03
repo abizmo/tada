@@ -1,11 +1,20 @@
-import { ADD_TODO } from "./actions";
+import { ADD_TODO, TOGGLE_TODO } from "./actions";
 
 export const INITIAL_STATE = [];
 
 const reducer = (state, action) => {
   switch (action.type) {
     case ADD_TODO: {
-      return [...state, { title: action.payload, done: false }];
+      const id = state.length + 1;
+      return [...state, { title: action.payload, done: false, id }];
+    }
+    case TOGGLE_TODO: {
+      const index = state.findIndex(todo => todo.id === action.payload);
+      const todo = state.splice(index, 1)[0];
+      const updatedTodo = { ...todo, done: !todo.done };
+
+      if (updatedTodo.done) return [...state, updatedTodo];
+      else return [updatedTodo, ...state];
     }
     default:
       return state;
