@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import {
+  CheckBoxOutlined,
   CheckBoxOutlineBlankOutlined,
-  CheckBoxOutlined
+  DeleteOutlined
 } from "@material-ui/icons";
 
 import { Context } from "../../context";
-import { TOGGLE_TODO } from "../../context/actions";
+import { DELETE_TODO, TOGGLE_TODO } from "../../context/actions";
 
 const TodoList = () => {
   const { state: todos, dispatch } = useContext(Context);
@@ -29,16 +30,28 @@ const TodoList = () => {
           }}
         >
           <div>{title}</div>
-          <button
-            onClick={() =>
-              dispatch({
-                type: TOGGLE_TODO,
-                payload: id
-              })
-            }
-          >
-            {done ? <CheckBoxOutlined /> : <CheckBoxOutlineBlankOutlined />}
-          </button>
+          <div>
+            <button
+              onClick={() =>
+                dispatch({
+                  type: TOGGLE_TODO,
+                  payload: id
+                })
+              }
+            >
+              {done ? <CheckBoxOutlined /> : <CheckBoxOutlineBlankOutlined />}
+            </button>
+            <button
+              onClick={() =>
+                dispatch({
+                  type: DELETE_TODO,
+                  payload: id
+                })
+              }
+            >
+              <DeleteOutlined />
+            </button>
+          </div>
         </div>
       ))}
     </div>

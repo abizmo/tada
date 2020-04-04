@@ -1,4 +1,4 @@
-import { ADD_TODO, TOGGLE_TODO } from "./actions";
+import { ADD_TODO, DELETE_TODO, TOGGLE_TODO } from "./actions";
 
 export const INITIAL_STATE = [];
 
@@ -15,6 +15,9 @@ const reducer = (state, action) => {
 
       if (updatedTodo.done) return [...state, updatedTodo];
       else return [updatedTodo, ...state];
+    }
+    case DELETE_TODO: {
+      return state.filter(todo => todo.id !== action.payload);
     }
     default:
       return state;
